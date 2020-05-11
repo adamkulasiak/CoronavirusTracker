@@ -8,6 +8,7 @@
              x:Class="CoronavirusTracker.MainPage">
 
     <StackLayout>
+        <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" />
         <ListView ItemsSource="{Binding Countries}">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -20,6 +20,20 @@ namespace CoronavirusTracker.ViewModels
             set => SetProperty(ref _countries, value);
         }
 
+        private bool _isRunning;
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
+
+        private bool _isVisible;
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set => SetProperty(ref _isVisible, value);
+        }
+
         public MainViewModel()
         {
             Initialize();
@@ -32,8 +46,12 @@ namespace CoronavirusTracker.ViewModels
 
         private async Task Initialize()
         {
+            IsRunning = true;
+            IsVisible = true;
             var countries = await GetCountries();
             Countries = countries;
+            IsRunning = false;
+            IsVisible = false;
         }
 
         private static HttpClient GetHttpClient()
