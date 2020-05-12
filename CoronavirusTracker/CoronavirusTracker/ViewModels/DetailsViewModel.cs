@@ -62,20 +62,40 @@ namespace CoronavirusTracker.ViewModels
             set => SetProperty(ref _active, value);
         }
 
-        private DateTime _datetime;
-        public DateTime Datetime
+        private string _datetime;
+        public string Datetime
         {
             get => _datetime;
             set => SetProperty(ref _datetime, value);
         }
 
+        private bool _isContentVisible;
+        public bool IsContentVisible
+        {
+            get => _isContentVisible;
+            set => SetProperty(ref _isContentVisible, value);
+        }
+
+        private bool _isLoaderVisible;
+        public bool IsLoaderVisible
+        {
+            get => _isLoaderVisible;
+            set => SetProperty(ref _isLoaderVisible, value);
+        }
+
         private async Task Initialize()
         {
+            IsContentVisible = false;
+            IsLoaderVisible = true;
             var stats = await GetResponse<List<Stats>>($"/total/country/{_countryModel.ISO2}");
+            Country = stats.Select(x => x.Country).FirstOrDefault();
             Confirmed = stats.Select(x => x.Confirmed).Last();
             Deaths = stats.Select(x => x.Deaths).Last();
             Recovered = stats.Select(x => x.Recovered).Last();
             Active = stats.Select(x => x.Active).Last();
+            Datetime = stats.Select(x => x.Date).Last().ToString("dd-MM-yyyy");
+            IsContentVisible = true;
+            IsLoaderVisible = false;
         }
     }
 }

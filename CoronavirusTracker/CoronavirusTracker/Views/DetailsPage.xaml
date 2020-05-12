@@ -7,12 +7,48 @@
              xmlns:viewModels="clr-namespace:CoronavirusTracker.ViewModels"
              x:Class="CoronavirusTracker.Views.DetailsPage">
 
-    <ListView ItemsSource="{Binding Stats}" x:Name="StatsForCountry">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding City}"
-                              Detail="{Binding Confirmed}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <ScrollView>
+        <Grid>
+            <ActivityIndicator IsRunning="{Binding IsLoaderVisible}" IsVisible="{Binding IsLoaderVisible}" Color="Blue" />
+            <StackLayout IsVisible="{Binding IsContentVisible}">
+                <Label Text="Kraj" Style="{StaticResource TitleStyle}" />
+                <Label Text="{Binding Country}" Style="{StaticResource ContentStyle}" />
+                <BoxView
+                WidthRequest="1"
+                HeightRequest="1"
+                BackgroundColor="LightGray"
+            />
+                <Label Text="Data" Style="{StaticResource TitleStyle}" />
+                <Label Text="{Binding Datetime}" Style="{StaticResource ContentStyle}" />
+                <BoxView
+                WidthRequest="1"
+                HeightRequest="1"
+                BackgroundColor="LightGray"
+            />
+                <Label Text="Potwierdzone" Style="{StaticResource TitleStyle}" />
+                <Label Text="{Binding Confirmed}" Style="{StaticResource ContentStyle}" />
+                <BoxView
+                WidthRequest="1"
+                HeightRequest="1"
+                BackgroundColor="LightGray"
+            />
+                <Label Text="Zgony" Style="{StaticResource TitleStyle}" />
+                <Label Text="{Binding Confirmed}" Style="{StaticResource ContentStyle}" />
+                <BoxView
+                WidthRequest="1"
+                HeightRequest="1"
+                BackgroundColor="LightGray"
+            />
+                <Label Text="Wyleczone" Style="{StaticResource TitleStyle}" />
+                <Label Text="{Binding Recovered}" Style="{StaticResource ContentStyle}" />
+                <BoxView
+                WidthRequest="1"
+                HeightRequest="1"
+                BackgroundColor="LightGray"
+            />
+                <Label Text="Aktywne" Style="{StaticResource TitleStyle}" />
+                <Label Text="{Binding Active}" Style="{StaticResource ContentStyle}" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>
