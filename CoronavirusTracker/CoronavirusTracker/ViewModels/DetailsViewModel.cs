@@ -83,11 +83,19 @@ namespace CoronavirusTracker.ViewModels
             set => SetProperty(ref _isLoaderVisible, value);
         }
 
+        private string _flagUrl;
+        public string FlagUrl
+        {
+            get => _flagUrl;
+            set => SetProperty(ref _flagUrl, value);
+        }
+
         private async Task Initialize()
         {
             IsContentVisible = false;
             IsLoaderVisible = true;
             var stats = await GetResponse<List<Stats>>($"/total/country/{_countryModel.ISO2}");
+            FlagUrl = string.Format(App.FlagUrl, _countryModel.ISO2);
             Country = stats.Select(x => x.Country).FirstOrDefault();
             Confirmed = stats.Select(x => x.Confirmed).Last();
             Deaths = stats.Select(x => x.Deaths).Last();
@@ -97,5 +105,6 @@ namespace CoronavirusTracker.ViewModels
             IsContentVisible = true;
             IsLoaderVisible = false;
         }
+
     }
 }

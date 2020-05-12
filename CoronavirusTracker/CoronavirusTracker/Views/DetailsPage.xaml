@@ -10,42 +10,50 @@
     <ScrollView>
         <Grid>
             <ActivityIndicator IsRunning="{Binding IsLoaderVisible}" IsVisible="{Binding IsLoaderVisible}" Color="Blue" />
-            <StackLayout IsVisible="{Binding IsContentVisible}">
+            <StackLayout IsVisible="{Binding IsContentVisible}" Padding="15">
+                <Image Source="{Binding FlagUrl}" />
                 <Label Text="Kraj" Style="{StaticResource TitleStyle}" />
                 <Label Text="{Binding Country}" Style="{StaticResource ContentStyle}" />
+                
                 <BoxView
                 WidthRequest="1"
                 HeightRequest="1"
-                BackgroundColor="LightGray"
-            />
+                BackgroundColor="LightGray" />
+                
                 <Label Text="Data" Style="{StaticResource TitleStyle}" />
-                <Label Text="{Binding Datetime}" Style="{StaticResource ContentStyle}" />
+                <DatePicker Date="{Binding Datetime}"
+                            Format="dd-MM-yyyy"
+                            Style="{StaticResource ContentStyle}"
+                            x:Name="DatePicker" />
                 <BoxView
-                WidthRequest="1"
-                HeightRequest="1"
-                BackgroundColor="LightGray"
-            />
+                    WidthRequest="1"
+                    HeightRequest="1"
+                    BackgroundColor="LightGray" />
+                
                 <Label Text="Potwierdzone" Style="{StaticResource TitleStyle}" />
                 <Label Text="{Binding Confirmed}" Style="{StaticResource ContentStyle}" />
+                
                 <BoxView
                 WidthRequest="1"
                 HeightRequest="1"
-                BackgroundColor="LightGray"
-            />
+                BackgroundColor="LightGray" />
+                
                 <Label Text="Zgony" Style="{StaticResource TitleStyle}" />
                 <Label Text="{Binding Confirmed}" Style="{StaticResource ContentStyle}" />
+                
                 <BoxView
                 WidthRequest="1"
                 HeightRequest="1"
-                BackgroundColor="LightGray"
-            />
+                BackgroundColor="LightGray" />
+                
                 <Label Text="Wyleczone" Style="{StaticResource TitleStyle}" />
                 <Label Text="{Binding Recovered}" Style="{StaticResource ContentStyle}" />
+                
                 <BoxView
                 WidthRequest="1"
                 HeightRequest="1"
-                BackgroundColor="LightGray"
-            />
+                BackgroundColor="LightGray" />
+                
                 <Label Text="Aktywne" Style="{StaticResource TitleStyle}" />
                 <Label Text="{Binding Active}" Style="{StaticResource ContentStyle}" />
             </StackLayout>

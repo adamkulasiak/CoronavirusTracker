@@ -12,6 +12,7 @@ namespace CoronavirusTracker
     public partial class App : Application
     {
         public static string ApiKey { get; private set; }
+        public static string FlagUrl { get; private set; }
         public App()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace CoronavirusTracker
                     var dynamicJson = JObject.Parse(json);
 
                     ApiKey = dynamicJson["apiUrl"].Value<string>();
+                    FlagUrl = dynamicJson["flagUrl"].Value<string>();
                 }
             }
         }

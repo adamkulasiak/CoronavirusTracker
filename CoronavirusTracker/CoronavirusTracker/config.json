@@ -1,3 +1,4 @@
 {
-  "apiUrl": "https://api.covid19api.com/"
+  "apiUrl": "https://api.covid19api.com/",
+  "flagUrl": "https://www.countryflags.io/{0}/flat/64.png"
 }
