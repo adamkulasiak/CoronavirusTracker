@@ -10,7 +10,7 @@
     <StackLayout>
         <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" />
         <SearchBar Placeholder="Search here..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" />
-        <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList">
+        <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList" ItemTapped="CountriesList_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Country}"

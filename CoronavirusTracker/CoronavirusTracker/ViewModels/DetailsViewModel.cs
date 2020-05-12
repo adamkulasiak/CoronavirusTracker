@@ -1,0 +1,81 @@
+﻿using CoronavirusTracker.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace CoronavirusTracker.ViewModels
+{
+    public class DetailsViewModel: BaseViewModel
+    {
+        private readonly INavigation _navigation;
+        private readonly CountryModel _countryModel;
+
+        public DetailsViewModel(INavigation navigation, CountryModel country)
+        {
+            _navigation = navigation;
+            _countryModel = country;
+            Initialize();
+        }
+
+        private List<Stats> _stats;
+        public List<Stats> Stats
+        {
+            get => _stats;
+            set => SetProperty(ref _stats, value);
+        }
+
+        private string _country;
+        public string Country
+        {
+            get => _country;
+            set => SetProperty(ref _country, value);
+        }
+
+        private int _confirmed;
+        public int Confirmed
+        {
+            get => _confirmed;
+            set => SetProperty(ref _confirmed, value);
+        }
+
+        private int _deaths;
+        public int Deaths
+        {
+            get => _deaths;
+            set => SetProperty(ref _deaths, value);
+        }
+
+        private int _recovered;
+        public int Recovered
+        {
+            get => _recovered;
+            set => SetProperty(ref _recovered, value);
+        }
+
+        private int _active;
+        public int Active
+        {
+            get => _active;
+            set => SetProperty(ref _active, value);
+        }
+
+        private DateTime _datetime;
+        public DateTime Datetime
+        {
+            get => _datetime;
+            set => SetProperty(ref _datetime, value);
+        }
+
+        private async Task Initialize()
+        {
+            var stats = await GetResponse<List<Stats>>($"/total/country/{_countryModel.ISO2}");
+            Confirmed = stats.Select(x => x.Confirmed).Last();
+            Deaths = stats.Select(x => x.Deaths).Last();
+            Recovered = stats.Select(x => x.Recovered).Last();
+            Active = stats.Select(x => x.Active).Last();
+        }
+    }
+}

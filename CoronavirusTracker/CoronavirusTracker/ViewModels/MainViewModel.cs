@@ -1,10 +1,12 @@
 ﻿using CoronavirusTracker.Models;
+using CoronavirusTracker.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace CoronavirusTracker.ViewModels
@@ -56,43 +58,19 @@ namespace CoronavirusTracker.ViewModels
             IsSearchBarVisible = false;
             IsRunning = true;
             IsVisible = true;
-            var countries = await GetCountries();
+            var countries = await GetResponse<List<CountryModel>>("countries");
             Countries = countries;
             IsSearchBarVisible = true;
             IsRunning = false;
             IsVisible = false;
         }
 
-        private static HttpClient GetHttpClient()
+        private ICommand _goToDetailsCommand;
+        public ICommand GoToDetailsCommand => _goToDetailsCommand ?? (_goToDetailsCommand = new Command<CountryModel>(country => OnGoToDetails(country)));
+
+        private void OnGoToDetails(CountryModel country)
         {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(App.ApiKey);
-
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip");
-            return client;
-        }
-
-        private async Task<List<CountryModel>> GetCountries()
-        {
-            try
-            {
-                var client = GetHttpClient();
-                var response = await client.GetAsync("countries");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var content = await response.Content.ReadAsStringAsync();
-                    var countries = JsonConvert.DeserializeObject<List<CountryModel>>(content);
-                    return countries;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return null;
+            _navigation.PushAsync(new DetailsPage(country));
         }
     }
 }

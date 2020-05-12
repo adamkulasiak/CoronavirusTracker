@@ -21,7 +21,7 @@ namespace CoronavirusTracker
         private async Task Init()
         {
             await LoadConfig();
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         private static async Task LoadConfig()

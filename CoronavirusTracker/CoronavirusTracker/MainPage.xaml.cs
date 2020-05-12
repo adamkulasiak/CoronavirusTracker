@@ -35,5 +35,11 @@ namespace CoronavirusTracker
                                                 x.Slug.Contains(e.NewTextValue));
             CountriesList.EndRefresh();
         }
+
+        private void CountriesList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var context = BindingContext as MainViewModel;
+            context.GoToDetailsCommand.Execute(e.Item);
+        }
     }
 }
