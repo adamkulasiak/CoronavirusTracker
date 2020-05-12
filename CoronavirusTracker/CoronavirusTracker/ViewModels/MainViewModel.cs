@@ -34,6 +34,13 @@ namespace CoronavirusTracker.ViewModels
             set => SetProperty(ref _isVisible, value);
         }
 
+        private bool _isSearchBarVisible;
+        public bool IsSearchBarVisible
+        {
+            get => _isSearchBarVisible;
+            set => SetProperty(ref _isSearchBarVisible, value);
+        }
+
         public MainViewModel()
         {
             Initialize();
@@ -46,10 +53,12 @@ namespace CoronavirusTracker.ViewModels
 
         private async Task Initialize()
         {
+            IsSearchBarVisible = false;
             IsRunning = true;
             IsVisible = true;
             var countries = await GetCountries();
             Countries = countries;
+            IsSearchBarVisible = true;
             IsRunning = false;
             IsVisible = false;
         }
