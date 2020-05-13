@@ -60,7 +60,7 @@ namespace CoronavirusTracker
             if (currentFavourites == string.Empty)
                 currentFavourites = iso2;
             else if (currentFavourites.Split(',').Any(x => x == iso2))
-                Application.Current.Properties.Remove(iso2);
+                currentFavourites = currentFavourites.Replace(iso2, string.Empty);
             else
                 currentFavourites = currentFavourites + $",{iso2}";
 
@@ -81,6 +81,36 @@ namespace CoronavirusTracker
             Application.Current.Properties.Clear();
             Application.Current.SavePropertiesAsync();
             CountriesList.ItemsSource = context.SortCountries();
+            CountriesList.EndRefresh();
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            var context = BindingContext as MainViewModel;
+            CountriesList.BeginRefresh();
+            string iso2 = ((TapGestureRecognizer)sender).BindingContext as string;
+
+            string currentFavourites = string.Empty;
+            try
+            {
+                currentFavourites = Application.Current.Properties["favourites"].ToString();
+            }
+            catch (KeyNotFoundException) { }
+
+            if (currentFavourites == string.Empty)
+                currentFavourites = iso2;
+            else if (currentFavourites.Split(',').Any(x => x == iso2))
+                Application.Current.Properties.Remove(iso2);
+            else
+                currentFavourites = currentFavourites + $",{iso2}";
+
+            Application.Current.Properties["favourites"] = currentFavourites;
+            Application.Current.SavePropertiesAsync();
+            if (CountriesList.ItemsSource != null)
+            {
+                CountriesList.ItemsSource = context.SortCountries();
+            }
+
             CountriesList.EndRefresh();
         }
     }

@@ -21,7 +21,7 @@
                             </StackLayout>
                             <StackLayout>
                                 <Label Text="{Binding Description}" HorizontalOptions="EndAndExpand" />
-                                <Button Text="A" HorizontalOptions="EndAndExpand" Clicked="Button_Clicked" />
+                                <Button Clicked="Button_Clicked" BindingContext="{Binding ISO2}" />
                             </StackLayout>
                         </Grid>
                     </ViewCell>
