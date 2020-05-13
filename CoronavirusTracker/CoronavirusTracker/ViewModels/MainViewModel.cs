@@ -60,11 +60,40 @@ namespace CoronavirusTracker.ViewModels
             IsRunning = true;
             IsVisible = true;
             var countries = await GetResponse<List<CountryModel>>("countries");
-            countries = countries.OrderBy(x => x.Country).ToList();
-            Countries = countries;
+            Countries = SortCountries(countries);
             IsSearchBarVisible = true;
             IsRunning = false;
             IsVisible = false;
+        }
+
+        public List<CountryModel> SortCountries(IEnumerable<CountryModel> countries = null)
+        {
+            if (countries == null)
+            {
+                countries = Countries;
+            }
+            string favourites = string.Empty;
+            try
+            {
+                favourites = Application.Current.Properties["favourites"].ToString();
+            }
+            catch (KeyNotFoundException) { }
+
+            var listOfFavourites = favourites.Split(',').ToList();
+            foreach (var country in countries)
+            {
+                if (listOfFavourites.Any(x => country.ISO2 == x))
+                {
+                    country.IsFavourite = true;
+                    country.Description = "Usuń";
+                } else
+                {
+                    country.IsFavourite = false;
+                    country.Description = "Dodaj";
+                }
+            }
+
+            return countries.OrderByDescending(x => x.IsFavourite).ThenBy(x => x.Country).ToList();
         }
 
         private ICommand _goToDetailsCommand;

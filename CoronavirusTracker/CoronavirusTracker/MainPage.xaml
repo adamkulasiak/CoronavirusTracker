@@ -10,14 +10,27 @@
     <StackLayout>
         <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" />
         <SearchBar Placeholder="Search here..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" />
-        <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList" ItemTapped="CountriesList_ItemTapped">
+        <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList" ItemTapped="CountriesList_ItemTapped" SeparatorVisibility="Default">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Country}"
-                              Detail="{Binding ISO2}" />
+                    <ViewCell>
+                        <Grid>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Country}" FontAttributes="Bold" />
+                                <Label Text="{Binding ISO2}" HorizontalOptions="Start" />
+                            </StackLayout>
+                            <StackLayout>
+                                <Label Text="{Binding Description}" HorizontalOptions="EndAndExpand" />
+                                <Button Text="A" HorizontalOptions="EndAndExpand" Clicked="Button_Clicked" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackLayout>
+            <Button Text="Wyczyść ulubione" Clicked="Button_Clicked_1" />
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>
