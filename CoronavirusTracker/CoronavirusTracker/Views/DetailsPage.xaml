@@ -39,7 +39,7 @@
                 BackgroundColor="LightGray" />
                 
                 <Label Text="Zgony" Style="{StaticResource TitleStyle}" />
-                <Label Text="{Binding Confirmed}" Style="{StaticResource ContentStyle}" />
+                <Label Text="{Binding Deaths}" Style="{StaticResource ContentStyle}" />
                 
                 <BoxView
                 WidthRequest="1"

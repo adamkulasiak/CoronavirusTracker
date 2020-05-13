@@ -3,6 +3,7 @@ using CoronavirusTracker.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,7 @@ namespace CoronavirusTracker.ViewModels
             IsRunning = true;
             IsVisible = true;
             var countries = await GetResponse<List<CountryModel>>("countries");
+            countries = countries.OrderBy(x => x.Country).ToList();
             Countries = countries;
             IsSearchBarVisible = true;
             IsRunning = false;

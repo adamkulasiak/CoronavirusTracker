@@ -32,7 +32,8 @@ namespace CoronavirusTracker
                 CountriesList.ItemsSource = context.Countries
                                                 .Where(x => x.Country.Contains(e.NewTextValue) ||
                                                 x.ISO2.Contains(e.NewTextValue) ||
-                                                x.Slug.Contains(e.NewTextValue));
+                                                x.Slug.Contains(e.NewTextValue))
+                                                .OrderBy(x => x.Country);
             CountriesList.EndRefresh();
         }
 
