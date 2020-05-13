@@ -9,7 +9,7 @@
 
     <StackLayout>
         <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" />
-        <SearchBar Placeholder="Szukaj..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" />
+        <SearchBar Placeholder="Szukaj..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" x:Name="Searchbar" />
         <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList" ItemTapped="CountriesList_ItemTapped" SeparatorVisibility="Default">
             <ListView.ItemTemplate>
                 <DataTemplate>
