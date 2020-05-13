@@ -44,6 +44,13 @@ namespace CoronavirusTracker.ViewModels
             set => SetProperty(ref _isSearchBarVisible, value);
         }
 
+        private string _iconPath;
+        public string IconPath
+        {
+            get => _iconPath;
+            set => SetProperty(ref _iconPath, value);
+        }
+
         public MainViewModel()
         {
             Initialize();
@@ -60,7 +67,9 @@ namespace CoronavirusTracker.ViewModels
             IsRunning = true;
             IsVisible = true;
             var countries = await GetResponse<List<CountryModel>>("countries");
-            Countries = SortCountries(countries);
+            var sorted = SortCountries(countries);
+            Countries = sorted;
+            IconPath = "https://img.icons8.com/ios/50/000000/star.png";
             IsSearchBarVisible = true;
             IsRunning = false;
             IsVisible = false;
@@ -85,11 +94,11 @@ namespace CoronavirusTracker.ViewModels
                 if (listOfFavourites.Any(x => country.ISO2 == x))
                 {
                     country.IsFavourite = true;
-                    country.Description = "Usuń";
+                    country.IconPath = "https://img.icons8.com/ios-filled/50/000000/star.png";
                 } else
                 {
                     country.IsFavourite = false;
-                    country.Description = "Dodaj";
+                    country.IconPath = "https://img.icons8.com/ios/50/000000/star.png";
                 }
             }
 

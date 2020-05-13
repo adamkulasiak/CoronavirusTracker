@@ -9,7 +9,7 @@
 
     <StackLayout>
         <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" />
-        <SearchBar Placeholder="Search here..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" />
+        <SearchBar Placeholder="Szukaj..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" />
         <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList" ItemTapped="CountriesList_ItemTapped" SeparatorVisibility="Default">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -19,9 +19,13 @@
                                 <Label Text="{Binding Country}" FontAttributes="Bold" />
                                 <Label Text="{Binding ISO2}" HorizontalOptions="Start" />
                             </StackLayout>
-                            <StackLayout>
-                                <Label Text="{Binding Description}" HorizontalOptions="EndAndExpand" />
-                                <Button Clicked="Button_Clicked" BindingContext="{Binding ISO2}" />
+                            <StackLayout Orientation="Horizontal">
+                                <Button WidthRequest="40"
+                                        ImageSource="{Binding IconPath}"
+                                        TextColor="Black" IsVisible="True"
+                                        Clicked="Button_Clicked"
+                                        HorizontalOptions="EndAndExpand"
+                                        x:Name="AddToFav" />
                             </StackLayout>
                         </Grid>
                     </ViewCell>

@@ -21,10 +21,8 @@
                 BackgroundColor="LightGray" />
                 
                 <Label Text="Data" Style="{StaticResource TitleStyle}" />
-                <DatePicker Date="{Binding Datetime}"
-                            Format="dd-MM-yyyy"
-                            Style="{StaticResource ContentStyle}"
-                            x:Name="DatePicker" />
+                <Label Text="{Binding Datetime}" Style="{StaticResource ContentStyle}" />
+                
                 <BoxView
                     WidthRequest="1"
                     HeightRequest="1"

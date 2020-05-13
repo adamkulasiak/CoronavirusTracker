@@ -20,6 +20,7 @@ namespace CoronavirusTracker
         {
             InitializeComponent();
             BindingContext = new MainViewModel(Navigation);
+
         }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -48,7 +49,7 @@ namespace CoronavirusTracker
         {
             var context = BindingContext as MainViewModel;
             CountriesList.BeginRefresh();
-            string iso2 = ((Button)sender).BindingContext as string;
+            string iso2 = (((Button)sender).BindingContext as CountryModel).ISO2;
 
             string currentFavourites = string.Empty;
             try
