@@ -1,4 +1,5 @@
-﻿using CoronavirusTracker.Models;
+﻿using Android.Content.Res;
+using CoronavirusTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,6 +96,12 @@ namespace CoronavirusTracker.ViewModels
             IsContentVisible = false;
             IsLoaderVisible = true;
             var stats = await GetResponse<List<Stats>>($"/total/country/{_countryModel.ISO2}");
+            if (stats.Count == 0)
+            {
+                IsLoaderVisible = false;
+                await Application.Current.MainPage.DisplayAlert("Informacja", "Nie znaleziono danych dla wybranego kraju", "Ok");
+                await _navigation.PushAsync(new MainPage(), true);
+            }
             FlagUrl = string.Format(App.FlagUrl, _countryModel.ISO2);
             Country = stats.Select(x => x.Country).FirstOrDefault();
             Confirmed = stats.Select(x => x.Confirmed).Last();

@@ -8,9 +8,15 @@
              x:Class="CoronavirusTracker.MainPage">
 
     <StackLayout>
-        <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" />
+        <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsVisible}" Color="Blue"/>
         <SearchBar Placeholder="Szukaj..." IsVisible="{Binding IsSearchBarVisible}" TextChanged="SearchBar_TextChanged" x:Name="Searchbar" />
-        <ListView ItemsSource="{Binding Countries}" x:Name="CountriesList" ItemTapped="CountriesList_ItemTapped" SeparatorVisibility="Default">
+        <ListView ItemsSource="{Binding Countries}"
+                  x:Name="CountriesList"
+                  ItemTapped="CountriesList_ItemTapped"
+                  SeparatorVisibility="Default"
+                  IsPullToRefreshEnabled="True"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

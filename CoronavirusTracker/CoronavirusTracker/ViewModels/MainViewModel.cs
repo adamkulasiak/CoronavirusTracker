@@ -51,6 +51,17 @@ namespace CoronavirusTracker.ViewModels
             set => SetProperty(ref _iconPath, value);
         }
 
+        private bool _isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(nameof(IsRefreshing));
+            }
+        }
+
         public MainViewModel()
         {
             Initialize();
@@ -61,11 +72,14 @@ namespace CoronavirusTracker.ViewModels
             _navigation = navigation;
         }
 
-        private async Task Initialize()
+        private async Task Initialize(bool isRefreshing = false)
         {
-            IsSearchBarVisible = false;
-            IsRunning = true;
-            IsVisible = true;
+            if (!isRefreshing)
+            {
+                IsSearchBarVisible = false;
+                IsRunning = true;
+                IsVisible = true;
+            }
             var countries = await GetResponse<List<CountryModel>>("countries");
             var sorted = SortCountries(countries);
             Countries = sorted;
@@ -78,9 +92,8 @@ namespace CoronavirusTracker.ViewModels
         public List<CountryModel> SortCountries(IEnumerable<CountryModel> countries = null)
         {
             if (countries == null)
-            {
                 countries = Countries;
-            }
+
             string favourites = string.Empty;
             try
             {
@@ -111,6 +124,19 @@ namespace CoronavirusTracker.ViewModels
         private void OnGoToDetails(CountryModel country)
         {
             _navigation.PushAsync(new DetailsPage(country));
+        }
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsRefreshing = true;
+                    await Initialize(true);
+                    IsRefreshing = false;
+                });
+            }
         }
     }
 }
